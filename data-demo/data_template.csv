@@ -1,0 +1,4 @@
+id;status;text;date_created;deadline
+0;0;Comprar sorvete;13/01/2025;19/01/2025
+1;0;Ligar correios;13/01/2025;14/01/2025
+2;1;Pagar conta luz;01/01/2025;10/01/2025

@@ -1,17 +1,33 @@
 <head>
-    <title>{{ title }}</title>
+    <title>{{title}}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
 
 <body>
-    <div class="App">
-        <header class="App-header">
-            <p>
-                GitHub Codespaces <span class="heart">♥️</span> Flask
-            </p>
-            <p class="small">
-                Edit <code>templates/index.html</code> and refresh to see your changes!
-            </p>
+    <div class="Table">
+        <header class="Table-header">
+                <h1> Lista de coisas para fazer </h1>
         </header>
+
+        <table>
+            <thead>
+                <tr>
+                    {% for key in dataset[0].keys() %}
+                        <th>{{ key }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in dataset %}
+                    <tr>
+                        {% for value in row.values() %}
+                            <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
     </div>
 </body>
 
