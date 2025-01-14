@@ -4,8 +4,9 @@ from datetime import datetime
 
 def get_data():
     table = pd.read_csv('data-demo/data_template.csv', sep=';')
-    dataset = table.to_dict(orient="records")
-    columns = table.columns.tolist()  # List of column names
+    table_filtered = table[table['status'] == 0]
+    dataset = table_filtered.to_dict(orient="records")
+    columns = table_filtered.columns.tolist()  # List of column names
     return columns, dataset
 
 def insert_data(texto, deadline):
@@ -29,7 +30,7 @@ def insert_data(texto, deadline):
         new_id = 0
 
     # Append the new row
-    date_now = datetime.today().strftime('%d/%m/%Y')
+    date_now = datetime.today().strftime('%Y-%m-%d')
     new_row = {'id': new_id, 'status': 0, 'text': texto, 'date_created': date_now, 'deadline': deadline}
     df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 

@@ -6,7 +6,10 @@
 <body>
     <div class="Table">
         <header class="Table-header">
-                <h1> Lista de coisas para fazer </h1>
+            <h1>Lista de coisas para fazer</h1>
+            <a href="{{ url_for('add_data') }}">
+                <button>Adicionar novo item</button>
+            </a>
         </header>
 
         <table>
@@ -30,5 +33,4 @@
 
     </div>
 </body>
-
 </html>
