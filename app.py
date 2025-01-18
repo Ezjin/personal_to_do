@@ -12,18 +12,17 @@ data_file = "data-demo/data_template.csv"  # Path to your CSV file
 def load_data():
     """Load the CSV file into the global DataFrame."""
     global dataframe
-    dataframe = pd.read_csv(data_file, sep=",")
+    dataframe = pd.read_csv(data_file, sep=";")
 
 
 def save_data():
     """Save the global DataFrame back to the CSV file."""
     global dataframe
-    dataframe.to_csv(data_file, index=False)
+    dataframe.to_csv(data_file, index=False, sep=";")
 
 with app.app_context():
     """Load the data when the app starts."""
     load_data()
-
 
 @app.route('/')
 def main_page():
