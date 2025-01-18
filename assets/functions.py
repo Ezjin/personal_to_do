@@ -10,7 +10,7 @@ def get_data():
     columns = table_filtered.columns.tolist()  # List of column names
     return columns, dataset
 
-def insert_data_old(texto, deadline):
+def insert_data(texto, deadline):
     """
     Adiciona uma nova linha com o texto e a data de entrega no arquivo CSV
 
@@ -37,23 +37,6 @@ def insert_data_old(texto, deadline):
 
     # Save the updated DataFrame back to the CSV file
     df.to_csv(file_path, sep=';', index=False)
-
-def insert_data(dataframe, texto, deadline):
-    """
-    Adiciona uma nova linha com o texto e a data de entrega no arquivo CSV
-
-    Args:
-        texto (str): O texto a ser inserido.
-        deadline (str): A data limite, se espera no formado DD/MM/YYYY.
-    """
-    # Add a new row to the DataFrame
-    date_now = datetime.today().strftime('%Y-%m-%d')
-    new_id = dataframe['id'].max() + 1 if not dataframe.empty else 1
-    new_row = {'id': new_id, 'status': 0, 'text': texto, 'date_created': date_now, 'deadline': deadline}
-    dataframe = pd.concat([dataframe, pd.DataFrame([new_row])], ignore_index=True)
-
-    # Save changes to the file
-    save_data()
 
 
 def delete_data(row_id):
