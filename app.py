@@ -12,7 +12,7 @@ data_file = "data-demo/data_template.csv"  # Path to your CSV file
 def load_data():
     """Load the CSV file into the global DataFrame."""
     global dataframe
-    dataframe = pd.read_csv(data_file, sep=";")
+    dataframe = pd.read_csv(data_file, sep=",")
 
 
 def save_data():
@@ -36,7 +36,7 @@ def main_page():
 def add_data():
     global dataframe
     if request.method == 'POST':
-        text = request.form.get('text')
+        texto = request.form.get('text')
         deadline = request.form.get('deadline')
         
         # Add a new row to the DataFrame
