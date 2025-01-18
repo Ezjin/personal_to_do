@@ -16,16 +16,26 @@
             <thead>
                 <tr>
                     {% for key in dataset[0].keys() %}
-                        <th>{{ key }}</th>
+                        {% if key != 'id' %}
+                            <th>{{ key }}</th>
+                        {% endif %}
                     {% endfor %}
                 </tr>
             </thead>
             <tbody>
                 {% for row in dataset %}
                     <tr>
-                        {% for value in row.values() %}
-                            <td>{{ value }}</td>
+                        {% for key, value in row.items() %}
+                            {% if key != 'id' %}    
+                                <td>{{ value }}</td>
+                            {% endif %}
                         {% endfor %}
+                        <td>
+                            <!-- Pass the row's ID dynamically to the delete endpoint -->
+                            <form action="{{ url_for('delete_row', row_id=row['id']) }}" method="post" >
+                                <button class="Delete" type="submit">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

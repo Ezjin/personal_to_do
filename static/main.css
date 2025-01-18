@@ -47,7 +47,7 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-    background-color: #da5959; /* Highlight on hover */
+    background-color: #119679; /* Highlight on hover */
 }
 
 /* Optional: Style for small elements */
@@ -63,4 +63,21 @@ code {
 
 a{
     color:white;
+}
+
+
+.delete-form {
+    display: inline;
+}
+
+.Delete {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.Delete:hover {
+    background-color: #ff1a1a;
 }
