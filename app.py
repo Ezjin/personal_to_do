@@ -27,8 +27,15 @@ with app.app_context():
 @app.route('/')
 def main_page():
     global dataframe
-    columns = list(dataframe.columns)
-    dataset = dataframe.to_dict(orient="records")
+    if dataframe.empty:
+        columns = ['id', 'status', 'text', 'date_created', 'deadline']  # Default column names
+        data = [0, 0, "Adicione uma tarefa para começar", datetime.today().strftime('%Y-%m-%d'), datetime.today().strftime('%Y-%m-%d')]
+        dataframe = pd.DataFrame([data], columns=columns)
+        dataset = dataframe.to_dict(orient="records")
+    else:
+        dataframe = dataframe.sort_values(by=['status', 'date_created'], ascending=[True, False]).reset_index(drop=True)
+        columns = list(dataframe.columns)
+        dataset = dataframe.to_dict(orient="records")
     return render_template("index.html", title="To-Do Pessoal", dataset=dataset, columns=columns)
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -59,6 +66,19 @@ def delete_row(row_id):
     save_data()
     
     return redirect(url_for('main_page'))
+
+@app.route('/toggle_status/<int:row_id>', methods=['POST'])
+def toggle_status(row_id):
+    global dataframe
+
+    # Find the row and toggle the status
+    dataframe.loc[dataframe['id'] == row_id, 'status'] = 1 - dataframe.loc[dataframe['id'] == row_id, 'status']
+
+    # Save the changes to the file
+    save_data()
+    
+    return redirect(url_for('main_page'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

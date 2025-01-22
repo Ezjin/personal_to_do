@@ -24,23 +24,32 @@
             </thead>
             <tbody>
                 {% for row in dataset %}
-                    <tr>
-                        {% for key, value in row.items() %}
-                            {% if key != 'id' %}    
-                                <td>{{ value }}</td>
-                            {% endif %}
-                        {% endfor %}
-                        <td>
-                            <!-- Pass the row's ID dynamically to the delete endpoint -->
-                            <form action="{{ url_for('delete_row', row_id=row['id']) }}" method="post" >
-                                <button class="Delete" type="submit">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
+        <tr>
+            {% for key, value in row.items() %}
+                {% if key == 'status' %}
+                    <td>
+                        <form action="{{ url_for('toggle_status', row_id=row['id']) }}" method="post">
+                            <button type="submit" class="StatusButton">
+                                {% if value == 1 %}
+                                    &#10003; <!-- Checkmark -->
+                                {% else %}
+                                    &#9744; <!-- Empty box -->
+                                {% endif %}
+                            </button>
+                        </form>
+                    </td>
+                {% elif key != 'id' %}
+                    <td>{{ value }}</td>
+                {% endif %}
+            {% endfor %}
+            <td>
+                <form action="{{ url_for('delete_row', row_id=row['id']) }}" method="post">
+                    <button class="Delete" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
         </table>
-
     </div>
 </body>
 </html>

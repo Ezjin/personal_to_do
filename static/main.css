@@ -47,7 +47,7 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-    background-color: #119679; /* Highlight on hover */
+    background-color: #8bd0eb86; /* Highlight on hover */
 }
 
 /* Optional: Style for small elements */
@@ -81,3 +81,14 @@ a{
 .Delete:hover {
     background-color: #ff1a1a;
 }
+
+.StatusButton {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+.StatusButton:hover {
+    color: green;
+}
+
