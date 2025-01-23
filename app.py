@@ -6,9 +6,22 @@ from flask_httpauth import HTTPBasicAuth
 from dotenv import load_dotenv
 import os
 import json
+import bcrypt
+import firebase_admin
+import google.cloud
+from firebase_admin import credentials, firestore
+from google_firestore import valida_login
 
 #Importando variaveis de ambiente
 load_dotenv()
+
+file_path = os.getenv("file_path")
+
+if not firebase_admin._apps:
+    cred = credentials.Certificate(file_path)
+    app_firebase = firebase_admin.initialize_app(cred)
+    
+store = firestore.client()
 
 app = Flask(__name__)
 
@@ -30,12 +43,9 @@ def save_data():
 # Autenticacao de usuario --------------------------------------
 auth = HTTPBasicAuth()
 
-users_json = os.getenv("USERS")
-USERS = json.loads(users_json)
-
 @auth.verify_password
 def verify_password(username, password):
-  if username in USERS and USERS[username] == password:
+  if valida_login(username, password):
     return username
   return None
 
